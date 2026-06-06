@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Groeneveld WK Poule 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #E8580A;
+    --orange-light: #FF7A30;
+    --orange-dark: #B84208;
+    --orange-pale: #FFF1EA;
+    --orange-mid: #FDDCC8;
+    --black: #0F0F0F;
+    --dark: #1A1A1A;
+    --gray-900: #1E1E1E;
+    --gray-800: #2A2A2A;
+    --gray-700: #3D3D3D;
+    --gray-400: #888;
+    --gray-200: #E5E5E5;
+    --gray-100: #F5F5F5;
+    --white: #FFFFFF;
+    --green: #1A9E5C;
+    --green-pale: #E8F8F0;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-lg: 16px;
+    --shadow: 0 4px 24px rgba(232,88,10,0.10);
+    --shadow-card: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #F7F2EE;
+    color: var(--black);
+    min-height: 100vh;
+    font-size: 15px;
+  }
+
+  /* ── HEADER ── */
+  .app-header {
+    background: var(--orange);
+    background-image: radial-gradient(ellipse at top right, #FF8C42 0%, var(--orange) 60%, var(--orange-dark) 100%);
+    color: white;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(232,88,10,0.30);
+  }
+  .header-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 14px 20px 0;
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+  }
+  .header-ball {
+    font-size: 32px;
+    line-height: 1;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2));
+  }
+  .header-text { flex: 1 }
+  .header-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 1.5px;
+    line-height: 1;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .header-sub {
+    font-size: 11px;
+    opacity: 0.8;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+  .header-badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+  }
+  .tab-bar {
+    max-width: 680px;
+    margin: 0 auto;
+    display: flex;
+    padding: 10px 20px 0;
+    gap: 2px;
+  }
+  .tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.65);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 4px 10px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.18s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: rgba(255,255,255,0.9); }
+  .tab-btn.active {
+    color: white;
+    border-bottom-color: white;
+    font-weight: 600;
+  }
+  .tab-icon { font-size: 15px; }
+
+  /* ── MAIN ── */
+  .main {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 20px 16px 80px;
+  }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ── CARDS ── */
+  .card {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .card-header {
+    padding: 14px 16px;
+    background: var(--orange-pale);
+    border-bottom: 1px solid var(--orange-mid);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: var(--orange-dark);
+  }
+  .card-body { padding: 16px; }
+
+  /* ── STAT ROW ── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .stat-box {
+    background: white;
+    border-radius: var(--radius);
+    padding: 14px 10px;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+    border-top: 3px solid var(--orange);
+  }
+  .stat-box-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--orange);
+    line-height: 1;
+  }
+  .stat-box-lbl {
+    font-size: 11px;
+    color: var(--gray-400);
+    margin-top: 3px;
+    font-weight: 500;
+  }
+
+  /* ── MATCH CARD ── */
+  .match-group-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: var(--orange);
+    padding: 16px 4px 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .match-group-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--orange-mid);
+  }
+  .match-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    margin-bottom: 10px;
+    overflow: hidden;
+    border-left: 4px solid transparent;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .match-card:hover { box-shadow: 0 4px 20px rgba(232,88,10,0.12); }
+  .match-card.has-pick { border-left-color: var(--orange); }
+  .match-card.boosted { border-left-color: #FFB700; background: #FFFDF0; }
+  .match-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 14px;
+    background: var(--gray-100);
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .match-meta { font-size: 11px; color: var(--gray-400); font-weight: 500; }
+  .booster-toggle {
+    background: white;
+    border: 1.5px solid var(--gray-200);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--gray-400);
+    transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .booster-toggle:hover { border-color: #FFB700; color: #B87D00; }
+  .booster-toggle.active { background: #FFB700; border-color: #FFB700; color: white; }
+  .match-body { padding: 12px 14px; }
+  .teams-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 8px;
+  }
+  .team-block { text-align: center; }
+  .team-flag { font-size: 26px; display: block; margin-bottom: 3px; }
+  .team-name { font-size: 12px; font-weight: 600; color: var(--dark); line-height: 1.2; }
+  .score-block {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .score-in {
+    width: 44px; height: 44px;
+    border: 2px solid var(--gray-200);
+    border-radius: 10px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--orange);
+    background: var(--orange-pale);
+    outline: none;
+    transition: border-color 0.15s;
+    -moz-appearance: textfield;
+  }
+  .score-in::-webkit-outer-spin-button,
+  .score-in::-webkit-inner-spin-button { -webkit-appearance: none; }
+  .score-in:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(232,88,10,0.12); }
+  .score-sep { font-size: 18px; font-weight: 700; color: var(--gray-400); }
+  .result-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--gray-200);
+    justify-content: flex-end;
+  }
+  .result-label { font-size: 11px; color: var(--gray-400); flex: 1; }
+  .result-in {
+    width: 38px; height: 34px;
+    border: 1.5px solid #B8E0FF;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    color: #1565C0;
+    background: #EBF5FF;
+    outline: none;
+    -moz-appearance: textfield;
+  }
+  .result-in::-webkit-outer-spin-button,
+  .result-in::-webkit-inner-spin-button { -webkit-appearance: none; }
+  .result-in:focus { border-color: #1565C0; }
+  .pts-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: var(--green-pale);
+    color: var(--green);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  /* ── LEADERBOARD ── */
+  .lb-row {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--gray-100);
+    gap: 12px;
+    transition: background 0.15s;
+  }
+  .lb-row:last-child { border-bottom: none; }
+  .lb-row:hover { background: var(--orange-pale); }
+  .lb-rank {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    width: 28px;
+    text-align: center;
+    color: var(--gray-400);
+    line-height: 1;
+  }
+  .lb-rank.gold { color: #E8A000; }
+  .lb-rank.silver { color: #888; }
+  .lb-rank.bronze { color: #C0714E; }
+  .lb-avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--orange);
+    background-image: linear-gradient(135deg, var(--orange-light), var(--orange-dark));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+  .lb-info { flex: 1; min-width: 0; }
+  .lb-name { font-weight: 600; font-size: 14px; }
+  .lb-sub { font-size: 11px; color: var(--gray-400); margin-top: 1px; }
+  .lb-bar { height: 3px; background: var(--gray-200); border-radius: 2px; margin-top: 4px; overflow: hidden; }
+  .lb-bar-fill { height: 100%; background: linear-gradient(90deg, var(--orange), var(--orange-light)); border-radius: 2px; }
+  .lb-pts { text-align: right; flex-shrink: 0; }
+  .lb-pts-big { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--orange); line-height: 1; }
+  .lb-pts-lbl { font-size: 10px; color: var(--gray-400); font-weight: 500; }
+
+  /* ── SPELERS ── */
+  .add-form {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .add-input {
+    flex: 1;
+    padding: 11px 14px;
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.15s;
+    background: white;
+  }
+  .add-input:focus { border-color: var(--orange); }
+  .btn-orange {
+    padding: 11px 18px;
+    background: var(--orange);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    white-space: nowrap;
+  }
+  .btn-orange:hover { background: var(--orange-light); }
+  .btn-orange:active { transform: scale(0.97); }
+  .player-row {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--gray-100);
+    gap: 10px;
+  }
+  .player-row:last-child { border-bottom: none; }
+  .player-av {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange-light), var(--orange-dark));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: white; flex-shrink: 0;
+  }
+  .player-name-txt { font-weight: 600; font-size: 14px; flex: 1; }
+  .player-pts-txt { font-size: 13px; color: var(--orange); font-weight: 700; margin-right: 8px; }
+  .btn-del {
+    background: none;
+    border: 1.5px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 5px 8px;
+    cursor: pointer;
+    color: var(--gray-400);
+    font-size: 14px;
+    transition: all 0.15s;
+  }
+  .btn-del:hover { border-color: #E53935; color: #E53935; background: #FFF0F0; }
+
+  /* ── REGELS ── */
+  .rule-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: 14px;
+    gap: 12px;
+  }
+  .rule-row:last-child { border-bottom: none; }
+  .rule-desc { color: var(--dark); flex: 1; }
+  .pts-pill {
+    background: var(--orange-pale);
+    color: var(--orange-dark);
+    border: 1px solid var(--orange-mid);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .info-box {
+    background: var(--orange-pale);
+    border-left: 3px solid var(--orange);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--orange-dark);
+    margin: 14px 0;
+    line-height: 1.6;
+  }
+
+  /* ── FILTER BAR ── */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filter-select {
+    padding: 8px 12px;
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    background: white;
+    outline: none;
+    cursor: pointer;
+    color: var(--dark);
+    transition: border-color 0.15s;
+  }
+  .filter-select:focus { border-color: var(--orange); }
+  .player-select {
+    flex: 1;
+    min-width: 140px;
+    padding: 9px 12px;
+    border: 2px solid var(--orange-mid);
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    background: var(--orange-pale);
+    color: var(--orange-dark);
+    outline: none;
+    cursor: pointer;
+  }
+  .player-select:focus { border-color: var(--orange); }
+
+  /* ── TOAST ── */
+  #toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--dark);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transition: all 0.25s;
+    z-index: 999;
+    pointer-events: none;
+    white-space: nowrap;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  }
+  #toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ── FIREBASE CONFIG BOX ── */
+  .setup-box {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 20px;
+    border-top: 4px solid var(--orange);
+  }
+  .setup-box h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--orange);
+    margin-bottom: 12px;
+  }
+  .setup-box p { font-size: 14px; color: var(--gray-700); line-height: 1.6; margin-bottom: 10px; }
+  .config-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    margin-bottom: 8px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .config-input:focus { border-color: var(--orange); }
+  .setup-step {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .step-num {
+    background: var(--orange);
+    color: white;
+    border-radius: 50%;
+    width: 24px; height: 24px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; flex-shrink: 0;
+  }
+
+  /* ── EMPTY STATE ── */
+  .empty { text-align: center; padding: 40px 20px; color: var(--gray-400); }
+  .empty-icon { font-size: 40px; margin-bottom: 10px; }
+  .empty-txt { font-size: 14px; line-height: 1.5; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--orange-mid); border-radius: 3px; }
+
+  @media (max-width: 480px) {
+    .header-title { font-size: 20px; }
+    .tab-btn { font-size: 11px; }
+    .team-flag { font-size: 22px; }
+    .score-in { width: 38px; height: 38px; font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<header class="app-header">
+  <div class="header-inner">
+    <div class="header-ball">⚽</div>
+    <div class="header-text">
+      <div class="header-title">Groeneveld WK Poule 2026</div>
+      <div class="header-sub">ESPN spelregels · 104 wedstrijden · live stand</div>
+    </div>
+    <div class="header-badge" id="hdr-count">0/104</div>
+  </div>
+  <nav class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('voorspel')"><span class="tab-icon">✏️</span>Voorspel</button>
+    <button class="tab-btn" onclick="showTab('stand')"><span class="tab-icon">🏆</span>Stand</button>
+    <button class="tab-btn" onclick="showTab('spelers')"><span class="tab-icon">👥</span>Spelers</button>
+    <button class="tab-btn" onclick="showTab('regels')"><span class="tab-icon">📋</span>Regels</button>
+    <button class="tab-btn" onclick="showTab('setup')"><span class="tab-icon">⚙️</span>Setup</button>
+  </nav>
+</header>
+
+<div class="main">
+
+  <!-- VOORSPEL -->
+  <div id="tab-voorspel" class="section active">
+    <div class="filter-bar">
+      <select class="player-select" id="active-player" onchange="onPlayerChange()">
+        <option value="">— kies speler —</option>
+      </select>
+      <select class="filter-select" id="round-filter" onchange="renderMatches()">
+        <option value="groep">Groepsfase</option>
+        <option value="R32">1/16 finales</option>
+        <option value="R16">1/8 finales</option>
+        <option value="QF">Kwartfinales</option>
+        <option value="SF">Halve finales</option>
+        <option value="F">Finale</option>
+      </select>
+      <select class="filter-select" id="group-filter" onchange="renderMatches()">
+        <option value="all">Alle groepen</option>
+      </select>
+    </div>
+    <div id="matches-container"></div>
+  </div>
+
+  <!-- STAND -->
+  <div id="tab-stand" class="section">
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-box-val" id="s-players">0</div><div class="stat-box-lbl">Spelers</div></div>
+      <div class="stat-box"><div class="stat-box-val" id="s-played">0</div><div class="stat-box-lbl">Gespeeld</div></div>
+      <div class="stat-box"><div class="stat-box-val" id="s-leader">–</div><div class="stat-box-lbl">Leider</div></div>
+    </div>
+    <div class="card">
+      <div id="leaderboard"><div class="empty"><div class="empty-icon">🏆</div><div class="empty-txt">Voeg spelers toe en vul voorspellingen in om de stand te zien.</div></div></div>
+    </div>
+  </div>
+
+  <!-- SPELERS -->
+  <div id="tab-spelers" class="section">
+    <div class="add-form">
+      <input class="add-input" id="new-player-name" type="text" placeholder="Naam deelnemer…" maxlength="20" onkeydown="if(event.key==='Enter')addPlayer()">
+      <button class="btn-orange" onclick="addPlayer()">+ Toevoegen</button>
+    </div>
+    <div class="card">
+      <div id="players-list"><div class="empty"><div class="empty-icon">👤</div><div class="empty-txt">Nog geen deelnemers. Voeg namen toe hierboven.</div></div></div>
+    </div>
+  </div>
+
+  <!-- REGELS -->
+  <div id="tab-regels" class="section">
+    <div class="card">
+      <div class="card-header"><span class="card-title">📊 Puntentelling — ESPN WK Pool</span></div>
+      <div class="card-body">
+        <div class="rule-row"><span class="rule-desc">Winnaar of gelijkspel correct voorspeld</span><span class="pts-pill">+3 pt</span></div>
+        <div class="rule-row"><span class="rule-desc">Doelpunten thuisteam exact juist</span><span class="pts-pill">+1 pt</span></div>
+        <div class="rule-row"><span class="rule-desc">Doelpunten uitteam exact juist</span><span class="pts-pill">+1 pt</span></div>
+        <div class="rule-row"><span class="rule-desc">Doelsaldo exact juist</span><span class="pts-pill">+1 pt</span></div>
+        <div class="rule-row"><span class="rule-desc">⚡ 2× Booster (1 per ronde)</span><span class="pts-pill">× 2 alles</span></div>
+        <div class="info-box">Maximum per wedstrijd: <strong>6 punten</strong> (12 met booster). Juiste uitslag = 3 + 1 + 1 + 1.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-title">⏱ Hoe telt de uitslag?</span></div>
+      <div class="card-body">
+        <div class="rule-row"><span class="rule-desc">Groepsfase</span><span class="pts-pill" style="background:#E8F0FF;border-color:#B8D0FF;color:#1A3C9E">Na 90 min</span></div>
+        <div class="rule-row"><span class="rule-desc">Knock-out met verlenging</span><span class="pts-pill" style="background:#E8F0FF;border-color:#B8D0FF;color:#1A3C9E">Na 120 min</span></div>
+        <div class="rule-row"><span class="rule-desc">Wedstrijd beslist via strafschoppen</span><span class="pts-pill">Telt als gelijkspel</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-title">⚡ 2× Booster</span></div>
+      <div class="card-body">
+        <p style="font-size:14px;color:var(--gray-700);line-height:1.6">Per ronde heeft elke speler <strong>één booster</strong>. Zet hem in op de wedstrijd waarvan je het zekerst bent — alle punten voor die wedstrijd worden verdubbeld. Je kunt de booster aanpassen tot aftrap. Bij de finale wordt hij automatisch toegepast.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-title">🌍 WK 2026 Format</span></div>
+      <div class="card-body">
+        <p style="font-size:14px;color:var(--gray-700);line-height:1.6"><strong>48 landen</strong> · 12 groepen van 4 · 104 wedstrijden.<br>Top 2 elke groep + 8 beste nrs. 3 → knock-out (32 landen).<br>Rondes: 1/16 finales → 1/8 finales → kwartfinales → halve finales → troostfinale → <strong>finale 19 juli</strong>.<br><br>🇳🇱 Nederland zit in <strong>Groep F</strong> met Japan, Zweden en Tunesië.</p>
+      </div>
+    </div>
+    <div style="text-align:center;font-size:11px;color:var(--gray-400);margin-top:8px">Spelregels gebaseerd op ESPN WK Pool 2026 · wkpool.espngoal.nl</div>
+  </div>
+
+  <!-- SETUP -->
+  <div id="tab-setup" class="section">
+    <div class="setup-box">
+      <h2>🔥 Firebase Setup</h2>
+      <p>Om de poule te delen met iedereen heb je een gratis Firebase-database nodig. Volg onderstaande stappen — duurt ongeveer 5 minuten.</p>
+
+      <div class="setup-step"><div class="step-num">1</div><div>Ga naar <strong><a href="https://console.firebase.google.com" target="_blank" style="color:var(--orange)">console.firebase.google.com</a></strong> en log in met je Google-account.</div></div>
+      <div class="setup-step"><div class="step-num">2</div><div>Klik <strong>Project toevoegen</strong> → naam: "wk-poule-2026" → aanmaken (Analytics: uit).</div></div>
+      <div class="setup-step"><div class="step-num">3</div><div>Ga naar <strong>Realtime Database</strong> (links in menu) → <em>Database maken</em> → kies een regio → start in <strong>testmodus</strong>.</div></div>
+      <div class="setup-step"><div class="step-num">4</div><div>Ga naar <strong>Project-instellingen</strong> (⚙️ links bovenin) → tabje <em>Algemeen</em> → scroll naar "Jouw apps" → klik <strong>&lt;/&gt;</strong> (web-app) → registreer → kopieer de <code>firebaseConfig</code>.</div></div>
+      <div class="setup-step"><div class="step-num">5</div><div>Plak hieronder de waarden uit jouw <code>firebaseConfig</code>:</div></div>
+
+      <input class="config-input" id="cfg-apiKey" placeholder="apiKey: bijv. AIzaSyB..." />
+      <input class="config-input" id="cfg-authDomain" placeholder="authDomain: bijv. wk-poule-2026.firebaseapp.com" />
+      <input class="config-input" id="cfg-dbUrl" placeholder="databaseURL: bijv. https://wk-poule-2026-default-rtdb.firebaseio.com" />
+      <input class="config-input" id="cfg-projectId" placeholder="projectId: bijv. wk-poule-2026" />
+      <input class="config-input" id="cfg-appId" placeholder="appId: bijv. 1:123456:web:abc123" />
+
+      <button class="btn-orange" onclick="saveFirebaseConfig()" style="width:100%;margin-top:4px">💾 Opslaan &amp; Verbinden</button>
+      <div id="fb-status" style="margin-top:10px;font-size:13px;color:var(--gray-400)"></div>
+    </div>
+
+    <div class="setup-box">
+      <h2>🌐 Online zetten via GitHub Pages</h2>
+      <div class="setup-step"><div class="step-num">1</div><div>Maak een gratis account op <a href="https://github.com" target="_blank" style="color:var(--orange)">github.com</a>.</div></div>
+      <div class="setup-step"><div class="step-num">2</div><div>Klik <strong>New repository</strong> → naam: <code>wk-poule-2026</code> → Public → aanmaken.</div></div>
+      <div class="setup-step"><div class="step-num">3</div><div>Klik <strong>Add file → Upload files</strong> → sleep dit HTML-bestand erin → commit.</div></div>
+      <div class="setup-step"><div class="step-num">4</div><div>Ga naar <strong>Settings → Pages</strong> → Source: <em>main branch</em> → Save.</div></div>
+      <div class="setup-step"><div class="step-num">5</div><div>Jouw link wordt: <strong>https://JOUWGEBRUIKERSNAAM.github.io/wk-poule-2026/groeneveld-wk-poule-2026.html</strong> — deel die met iedereen!</div></div>
+      <div class="info-box">💡 Tip: hernoem het bestand naar <code>index.html</code> zodat de link korter wordt: <code>https://NAAM.github.io/wk-poule-2026/</code></div>
+    </div>
+
+    <div class="setup-box" style="border-top-color:var(--green)">
+      <h2 style="color:var(--green)">✅ Zonder Firebase (lokaal)</h2>
+      <p>De app werkt ook <strong>zonder Firebase</strong>. Alle data wordt dan opgeslagen in de browser (localStorage) van de persoon die de app gebruikt. Handig als jullie op één apparaat spelen thuis. Gewoon het bestand openen in Chrome of Edge — klaar.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Firebase SDK -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getDatabase, ref, onValue, set, update } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
+
+window._fb = null;
+window._db = null;
+window._dbRef = null;
+window._fbEnabled = false;
+
+window.initFirebase = function(config) {
+  try {
+    const app = initializeApp(config, 'wkpool');
+    window._db = getDatabase(app);
+    window._fbEnabled = true;
+    document.getElementById('fb-status').innerHTML = '<span style="color:var(--green)">✅ Verbonden met Firebase! Data wordt nu gesynchroniseerd.</span>';
+    // Sync from Firebase
+    const rootRef = ref(window._db, 'wkpoule');
+    onValue(rootRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        if (data.players) state.players = data.players;
+        if (data.picks) state.picks = data.picks;
+        if (data.boosters) state.boosters = data.boosters;
+        if (data.results) state.results = data.results;
+        renderCurrentTab();
+        updateHeaderCount();
+      }
+    });
+    toast('✅ Firebase verbonden!');
+  } catch(e) {
+    document.getElementById('fb-status').innerHTML = '<span style="color:#E53935">❌ Fout: ' + e.message + '</span>';
+  }
+};
+
+window.fbSave = function(path, data) {
+  if (!window._fbEnabled || !window._db) return;
+  const r = ref(window._db, 'wkpoule/' + path);
+  set(r, data).catch(e => console.log('fb save err', e));
+};
+</script>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────
+
+const GROUPS = {
+  A:['Brazilië','Duitsland','Uruguay','Kameroen'],
+  B:['Argentinië','Indonesië','Marokko','Oekraïne'],
+  C:['Frankrijk','Senegal','Zwitserland','Noorwegen'],
+  D:['VS','Turkije','Australië','Paraguay'],
+  E:['Spanje','Mexico','Servië','Kongo DR'],
+  F:['Nederland','Japan','Zweden','Tunesië'],
+  G:['Portugal','Canada','Kroatië','Chili'],
+  H:['Engeland','Colombia','Z-Korea','Ghana'],
+  I:['Marokko*','Ecuador','Z-Afrika','Iran'],
+  J:['Senegal*','Denemarken','S-Arabië','Ghana*'],
+  K:['VS*','Mexico*','Polen','Slowakije'],
+  L:['België','Australië*','Kongo DR*','Jamaica']
+};
+
+const FLAGS = {
+  'Brazilië':'🇧🇷','Duitsland':'🇩🇪','Uruguay':'🇺🇾','Kameroen':'🇨🇲',
+  'Argentinië':'🇦🇷','Indonesië':'🇮🇩','Marokko':'🇲🇦','Oekraïne':'🇺🇦',
+  'Frankrijk':'🇫🇷','Senegal':'🇸🇳','Zwitserland':'🇨🇭','Noorwegen':'🇳🇴',
+  'VS':'🇺🇸','Turkije':'🇹🇷','Australië':'🇦🇺','Paraguay':'🇵🇾',
+  'Spanje':'🇪🇸','Mexico':'🇲🇽','Servië':'🇷🇸','Kongo DR':'🇨🇩',
+  'Nederland':'🇳🇱','Japan':'🇯🇵','Zweden':'🇸🇪','Tunesië':'🇹🇳',
+  'Portugal':'🇵🇹','Canada':'🇨🇦','Kroatië':'🇭🇷','Chili':'🇨🇱',
+  'Engeland':'🏴󠁧󠁢󠁥󠁮󠁧󠁿','Colombia':'🇨🇴','Z-Korea':'🇰🇷','Ghana':'🇬🇭',
+  'Ecuador':'🇪🇨','Z-Afrika':'🇿🇦','Iran':'🇮🇷','S-Arabië':'🇸🇦',
+  'Denemarken':'🇩🇰','Oostenrijk':'🇦🇹','Polen':'🇵🇱','Slowakije':'🇸🇰',
+  'België':'🇧🇪','Jamaica':'🇯🇲'
+};
+function flag(t){return FLAGS[t]||FLAGS[t.replace('*','')]||'🏳️';}
+
+const DATES = {
+  A:['11 jun','17 jun','22 jun'],B:['12 jun','17 jun','22 jun'],
+  C:['12 jun','18 jun','23 jun'],D:['13 jun','18 jun','23 jun'],
+  E:['13 jun','19 jun','24 jun'],F:['14 jun','19 jun','24 jun'],
+  G:['14 jun','20 jun','25 jun'],H:['15 jun','20 jun','25 jun'],
+  I:['15 jun','21 jun','26 jun'],J:['16 jun','21 jun','26 jun'],
+  K:['16 jun','22 jun','27 jun'],L:['17 jun','22 jun','27 jun']
+};
+
+function buildMatches(){
+  const ms=[];let id=1;
+  for(const [g,teams] of Object.entries(GROUPS)){
+    const pairs=[[0,1],[2,3],[0,2],[1,3],[0,3],[1,2]];
+    const d=DATES[g];
+    pairs.forEach(([a,b],i)=>{
+      const rnd=i<2?1:i<4?2:3;
+      ms.push({id:id++,home:teams[a],away:teams[b],group:g,type:'groep',round:rnd,date:d[rnd-1]});
+    });
+  }
+  const ko=[
+    {id:73,home:'W-A1',away:'W-B2',type:'R32',round:4,date:'28 jun'},
+    {id:74,home:'W-C1',away:'W-D2',type:'R32',round:4,date:'28 jun'},
+    {id:75,home:'W-E1',away:'W-F2',type:'R32',round:4,date:'29 jun'},
+    {id:76,home:'W-G1',away:'W-H2',type:'R32',round:4,date:'29 jun'},
+    {id:77,home:'W-B1',away:'W-A2',type:'R32',round:4,date:'30 jun'},
+    {id:78,home:'W-D1',away:'W-C2',type:'R32',round:4,date:'30 jun'},
+    {id:79,home:'W-F1',away:'W-E2',type:'R32',round:4,date:'1 jul'},
+    {id:80,home:'W-H1',away:'W-G2',type:'R32',round:4,date:'1 jul'},
+    {id:81,home:'W-I1',away:'W-J2',type:'R32',round:4,date:'2 jul'},
+    {id:82,home:'W-K1',away:'W-L2',type:'R32',round:4,date:'2 jul'},
+    {id:83,home:'W-J1',away:'W-I2',type:'R32',round:4,date:'3 jul'},
+    {id:84,home:'W-L1',away:'W-K2',type:'R32',round:4,date:'3 jul'},
+    {id:85,home:'3e #1',away:'3e #2',type:'R32',round:4,date:'4 jul'},
+    {id:86,home:'3e #3',away:'3e #4',type:'R32',round:4,date:'4 jul'},
+    {id:87,home:'3e #5',away:'3e #6',type:'R32',round:4,date:'5 jul'},
+    {id:88,home:'3e #7',away:'3e #8',type:'R32',round:4,date:'5 jul'},
+    {id:89,home:'W73/74',away:'W75/76',type:'R16',round:5,date:'6 jul'},
+    {id:90,home:'W77/78',away:'W79/80',type:'R16',round:5,date:'7 jul'},
+    {id:91,home:'W81/82',away:'W83/84',type:'R16',round:5,date:'8 jul'},
+    {id:92,home:'W85/86',away:'W87/88',type:'R16',round:5,date:'9 jul'},
+    {id:93,home:'W89',away:'W90',type:'R16',round:5,date:'10 jul'},
+    {id:94,home:'W91',away:'W92',type:'R16',round:5,date:'11 jul'},
+    {id:95,home:'W93',away:'W94',type:'R16',round:5,date:'12 jul'},
+    {id:96,home:'...',away:'...',type:'R16',round:5,date:'13 jul'},
+    {id:97,home:'W-QF1',away:'W-QF2',type:'QF',round:6,date:'11 jul'},
+    {id:98,home:'W-QF3',away:'W-QF4',type:'QF',round:6,date:'12 jul'},
+    {id:99,home:'W-QF5',away:'W-QF6',type:'QF',round:6,date:'13 jul'},
+    {id:100,home:'W-QF7',away:'W-QF8',type:'QF',round:6,date:'14 jul'},
+    {id:101,home:'W-SF1',away:'W-SF2',type:'SF',round:7,date:'15 jul'},
+    {id:102,home:'W-SF3',away:'W-SF4',type:'SF',round:7,date:'16 jul'},
+    {id:103,home:'Verliezer SF1',away:'Verliezer SF2',type:'F',round:8,date:'18 jul'},
+    {id:104,home:'Winnaar SF1',away:'Winnaar SF2',type:'F',round:8,date:'19 jul'}
+  ];
+  return [...ms,...ko];
+}
+
+const ALL_MATCHES = buildMatches();
+
+let state = {players:[], picks:{}, boosters:{}, results:{}};
+
+function loadLocal(){
+  try{const s=localStorage.getItem('groe_wk2026');if(s)state=JSON.parse(s);}catch(e){}
+}
+function saveLocal(){
+  try{localStorage.setItem('groe_wk2026',JSON.stringify(state));}catch(e){}
+}
+function saveAll(){
+  saveLocal();
+  if(window._fbEnabled){
+    window.fbSave('players', state.players);
+    window.fbSave('picks', state.picks);
+    window.fbSave('boosters', state.boosters);
+    window.fbSave('results', state.results);
+  }
+}
+
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+// ── TABS ──────────────────────────────────────────────────────────────────
+let currentTab = 'voorspel';
+function showTab(t){
+  currentTab=t;
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  event.currentTarget.classList.add('active');
+  // hide group filter for non-group views
+  document.getElementById('group-filter').style.display=(t==='voorspel'&&document.getElementById('round-filter').value==='groep')?'':'none';
+  if(t==='stand')renderLeaderboard();
+  if(t==='spelers')renderPlayers();
+  if(t==='voorspel')renderMatches();
+}
+function renderCurrentTab(){
+  if(currentTab==='stand')renderLeaderboard();
+  if(currentTab==='spelers')renderPlayers();
+  if(currentTab==='voorspel')renderMatches();
+  updatePlayerSelects();
+}
+
+// ── SPELERS ──────────────────────────────────────────────────────────────
+function addPlayer(){
+  const inp=document.getElementById('new-player-name');
+  const name=inp.value.trim();
+  if(!name)return;
+  if(state.players.includes(name)){toast('⚠️ Naam bestaat al');return;}
+  state.players.push(name);
+  saveAll();
+  inp.value='';
+  renderPlayers();
+  updatePlayerSelects();
+  toast('✅ '+name+' toegevoegd!');
+}
+function removePlayer(name){
+  if(!confirm('Verwijder '+name+'?'))return;
+  state.players=state.players.filter(p=>p!==name);
+  delete state.picks[name];
+  delete state.boosters[name];
+  saveAll();
+  renderPlayers();
+  updatePlayerSelects();
+  toast('🗑 '+name+' verwijderd');
+}
+function renderPlayers(){
+  const el=document.getElementById('players-list');
+  if(!state.players.length){
+    el.innerHTML='<div class="empty"><div class="empty-icon">👤</div><div class="empty-txt">Nog geen deelnemers.<br>Voeg namen toe hierboven.</div></div>';
+    return;
+  }
+  el.innerHTML=state.players.map(p=>{
+    const pts=calcPoints(p);
+    const init=p.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    return `<div class="player-row">
+      <div class="player-av">${init}</div>
+      <div class="player-name-txt">${p}</div>
+      <div class="player-pts-txt">${pts} pt</div>
+      <button class="btn-del" onclick="removePlayer('${esc(p)}')">🗑</button>
+    </div>`;
+  }).join('');
+}
+function updatePlayerSelects(){
+  const sel=document.getElementById('active-player');
+  const cur=sel.value;
+  sel.innerHTML='<option value="">— kies speler —</option>'+state.players.map(p=>`<option value="${p}"${p===cur?' selected':''}>${p}</option>`).join('');
+}
+
+// ── PICKS ─────────────────────────────────────────────────────────────────
+function getPick(player,mid){return ((state.picks[player]||{})[mid])||{home:'',away:'',booster:false};}
+
+function setPick(player,mid,field,val){
+  if(!player)return;
+  if(!state.picks[player])state.picks[player]={};
+  if(!state.picks[player][mid])state.picks[player][mid]={home:'',away:'',booster:false};
+  state.picks[player][mid][field]=val;
+  saveAll();
+  // update pts badge live
+  const pts=calcMatchPoints(player,mid);
+  const badge=document.getElementById('pts-'+player.replace(/\W/g,'_')+'-'+mid);
+  if(badge){
+    if(pts!==null){badge.style.display='inline-flex';badge.textContent='+'+pts+' pt'+(getPick(player,mid).booster?' ⚡':'');}
+    else badge.style.display='none';
+  }
+  updateHeaderCount();
+}
+
+function setResult(mid,field,val){
+  if(!state.results[mid])state.results[mid]={home:'',away:''};
+  state.results[mid][field]=val;
+  saveAll();
+  // recalc all pts badges for this match
+  state.players.forEach(p=>{
+    const pts=calcMatchPoints(p,mid);
+    const badge=document.getElementById('pts-'+p.replace(/\W/g,'_')+'-'+mid);
+    if(badge){
+      if(pts!==null){badge.style.display='inline-flex';badge.textContent='+'+pts+' pt'+(getPick(p,mid).booster?' ⚡':'');}
+      else badge.style.display='none';
+    }
+  });
+  updateHeaderCount();
+}
+
+function toggleBooster(player,mid){
+  if(!player){toast('Kies eerst een speler');return;}
+  if(!state.picks[player])state.picks[player]={};
+  if(!state.picks[player][mid])state.picks[player][mid]={home:'',away:'',booster:false};
+  const match=ALL_MATCHES.find(m=>m.id===mid);
+  const round=match.type==='groep'?'groep_'+match.round:match.type;
+  if(!state.boosters[player])state.boosters[player]={};
+  const curBoost=state.picks[player][mid].booster;
+  if(curBoost){
+    state.picks[player][mid].booster=false;
+    delete state.boosters[player][mid];
+    toast('⚡ Booster teruggepakt');
+  } else {
+    const conflict=Object.entries(state.boosters[player]).find(([id,r])=>r===round&&parseInt(id)!==mid);
+    if(conflict){toast('⚠️ Je hebt al een booster in deze ronde!');return;}
+    state.picks[player][mid].booster=true;
+    state.boosters[player][mid]=round;
+    toast('⚡ 2× Booster ingezet!');
+  }
+  saveAll();
+  renderMatches();
+}
+
+// ── SCORING ───────────────────────────────────────────────────────────────
+function calcMatchPoints(player,mid){
+  const pick=getPick(player,mid);
+  const res=state.results[mid];
+  if(!res||pick.home===''||pick.away==='')return null;
+  const ph=parseInt(pick.home),pa=parseInt(pick.away),rh=parseInt(res.home),ra=parseInt(res.away);
+  if([ph,pa,rh,ra].some(isNaN))return null;
+  let pts=0;
+  const pw=ph>pa?'h':ph<pa?'a':'d',rw=rh>ra?'h':rh<ra?'a':'d';
+  if(pw===rw)pts+=3;
+  if(ph===rh)pts+=1;
+  if(pa===ra)pts+=1;
+  if((ph-pa)===(rh-ra))pts+=1;
+  if(pick.booster)pts*=2;
+  return pts;
+}
+function calcPoints(player){
+  return ALL_MATCHES.reduce((sum,m)=>{const p=calcMatchPoints(player,m.id);return sum+(p||0);},0);
+}
+
+function updateHeaderCount(){
+  const done=Object.values(state.results).filter(r=>r&&r.home!==''&&r.away!=='').length;
+  document.getElementById('hdr-count').textContent=done+'/104';
+}
+
+// ── LEADERBOARD ───────────────────────────────────────────────────────────
+function renderLeaderboard(){
+  const done=Object.values(state.results).filter(r=>r&&r.home!==''&&r.away!=='').length;
+  document.getElementById('s-players').textContent=state.players.length;
+  document.getElementById('s-played').textContent=done;
+  const el=document.getElementById('leaderboard');
+  if(!state.players.length){
+    el.innerHTML='<div class="empty"><div class="empty-icon">🏆</div><div class="empty-txt">Voeg spelers toe en vul voorspellingen in om de stand te zien.</div></div>';
+    document.getElementById('s-leader').textContent='–';
+    return;
+  }
+  const ranked=state.players.map(p=>({name:p,pts:calcPoints(p)})).sort((a,b)=>b.pts-a.pts);
+  document.getElementById('s-leader').textContent=ranked[0]?ranked[0].name.split(' ')[0]:'–';
+  const maxPts=Math.max(...ranked.map(r=>r.pts),1);
+  const rankClass=['gold','silver','bronze'];
+  el.innerHTML=ranked.map((p,i)=>{
+    const init=p.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    const pct=Math.round((p.pts/maxPts)*100);
+    return `<div class="lb-row">
+      <div class="lb-rank ${rankClass[i]||''}">${i+1}</div>
+      <div class="lb-avatar">${init}</div>
+      <div class="lb-info">
+        <div class="lb-name">${p.name}</div>
+        <div class="lb-bar"><div class="lb-bar-fill" style="width:${pct}%"></div></div>
+        <div class="lb-sub">${i===0?'🥇 Leider':''}${i===1?'🥈':''} ${p.pts} punten</div>
+      </div>
+      <div class="lb-pts"><div class="lb-pts-big">${p.pts}</div><div class="lb-pts-lbl">punten</div></div>
+    </div>`;
+  }).join('');
+}
+
+// ── MATCHES ───────────────────────────────────────────────────────────────
+function onPlayerChange(){renderMatches();}
+
+function renderMatches(){
+  const player=document.getElementById('active-player').value;
+  const rt=document.getElementById('round-filter').value;
+  const gf=document.getElementById('group-filter').value;
+  document.getElementById('group-filter').style.display=(rt==='groep')?'':'none';
+  let matches=ALL_MATCHES.filter(m=>rt==='groep'?m.type==='groep':m.type===rt);
+  if(rt==='groep'&&gf!=='all')matches=matches.filter(m=>m.group===gf);
+  const el=document.getElementById('matches-container');
+  if(!player){
+    el.innerHTML='<div class="empty"><div class="empty-icon">✏️</div><div class="empty-txt">Kies een speler om voorspellingen in te vullen.<br><br><button class="btn-orange" onclick="showTabDirect(\'spelers\')">Spelers beheren</button></div></div>';
+    return;
+  }
+  let html='',lastGroup='',lastKoRound='';
+  matches.forEach(m=>{
+    const pick=getPick(player,m.id);
+    const res=state.results[m.id]||{home:'',away:''};
+    const pts=calcMatchPoints(player,m.id);
+    const hasPick=pick.home!==''||pick.away!=='';
+    const safePname=player.replace(/\W/g,'_');
+    if(m.type==='groep'&&m.group!==lastGroup){
+      html+=`<div class="match-group-label">GROEP ${m.group}</div>`;
+      lastGroup=m.group;
+    }
+    if(m.type!=='groep'&&m.type!==lastKoRound){
+      const lbl={R32:'🔵 1/16 FINALES',R16:'🟠 1/8 FINALES',QF:'🏅 KWARTFINALES',SF:'🔥 HALVE FINALES',F:'🏆 FINALE'};
+      html+=`<div class="match-group-label">${lbl[m.type]||m.type}</div>`;
+      lastKoRound=m.type;
+    }
+    html+=`<div class="match-card ${hasPick?'has-pick':''} ${pick.booster?'boosted':''}" id="mcard-${m.id}">
+      <div class="match-top">
+        <span class="match-meta">${m.date}${m.group?' · Groep '+m.group:''}</span>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span id="pts-${safePname}-${m.id}" class="pts-badge" style="display:${pts!==null?'inline-flex':'none'}">${pts!==null?'+'+pts+' pt'+(pick.booster?' ⚡':''):''}</span>
+          <button class="booster-toggle ${pick.booster?'active':''}" onclick="toggleBooster('${esc(player)}',${m.id})">⚡ 2×</button>
+        </div>
+      </div>
+      <div class="match-body">
+        <div class="teams-row">
+          <div class="team-block">
+            <span class="team-flag">${flag(m.home)}</span>
+            <span class="team-name">${m.home}</span>
+          </div>
+          <div class="score-block">
+            <input class="score-in" type="number" min="0" max="20" value="${pick.home}" placeholder="?" oninput="setPick('${esc(player)}',${m.id},'home',this.value)" onclick="this.select()">
+            <span class="score-sep">–</span>
+            <input class="score-in" type="number" min="0" max="20" value="${pick.away}" placeholder="?" oninput="setPick('${esc(player)}',${m.id},'away',this.value)" onclick="this.select()">
+          </div>
+          <div class="team-block">
+            <span class="team-flag">${flag(m.away)}</span>
+            <span class="team-name">${m.away}</span>
+          </div>
+        </div>
+        <div class="result-row">
+          <span class="result-label">📊 Werkelijke uitslag:</span>
+          <input class="result-in" type="number" min="0" max="20" value="${res.home}" placeholder="–" oninput="setResult(${m.id},'home',this.value)" onclick="this.select()">
+          <span style="font-size:14px;color:#888">–</span>
+          <input class="result-in" type="number" min="0" max="20" value="${res.away}" placeholder="–" oninput="setResult(${m.id},'away',this.value)" onclick="this.select()">
+        </div>
+      </div>
+    </div>`;
+  });
+  el.innerHTML=html||'<div class="empty"><div class="empty-icon">📅</div><div class="empty-txt">Geen wedstrijden gevonden.</div></div>';
+}
+
+function showTabDirect(t){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b=>{if(b.textContent.trim().toLowerCase().includes(t.slice(0,4)))b.classList.add('active');});
+  if(t==='spelers')renderPlayers();
+}
+
+function esc(s){return s.replace(/'/g,"\\'").replace(/"/g,'&quot;');}
+
+// ── FIREBASE CONFIG ───────────────────────────────────────────────────────
+function saveFirebaseConfig(){
+  const cfg={
+    apiKey:document.getElementById('cfg-apiKey').value.trim(),
+    authDomain:document.getElementById('cfg-authDomain').value.trim(),
+    databaseURL:document.getElementById('cfg-dbUrl').value.trim(),
+    projectId:document.getElementById('cfg-projectId').value.trim(),
+    appId:document.getElementById('cfg-appId').value.trim()
+  };
+  if(!cfg.apiKey||!cfg.databaseURL){
+    toast('⚠️ Vul minimaal apiKey en databaseURL in');return;
+  }
+  localStorage.setItem('groe_fbcfg',JSON.stringify(cfg));
+  window.initFirebase(cfg);
+}
+
+function loadFirebaseConfig(){
+  try{
+    const s=localStorage.getItem('groe_fbcfg');
+    if(s){
+      const cfg=JSON.parse(s);
+      document.getElementById('cfg-apiKey').value=cfg.apiKey||'';
+      document.getElementById('cfg-authDomain').value=cfg.authDomain||'';
+      document.getElementById('cfg-dbUrl').value=cfg.databaseURL||'';
+      document.getElementById('cfg-projectId').value=cfg.projectId||'';
+      document.getElementById('cfg-appId').value=cfg.appId||'';
+      if(cfg.apiKey&&cfg.databaseURL){
+        setTimeout(()=>window.initFirebase(cfg),1500);
+      }
+    }
+  }catch(e){}
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+function initGroupFilter(){
+  const sel=document.getElementById('group-filter');
+  sel.innerHTML='<option value="all">Alle groepen</option>'+
+    Object.keys(GROUPS).map(g=>`<option value="${g}">Groep ${g}</option>`).join('');
+  sel.style.display='';
+}
+
+loadLocal();
+initGroupFilter();
+updatePlayerSelects();
+renderMatches();
+updateHeaderCount();
+loadFirebaseConfig();
+
+document.getElementById('round-filter').addEventListener('change',()=>{
+  const rt=document.getElementById('round-filter').value;
+  document.getElementById('group-filter').style.display=rt==='groep'?'':'none';
+});
+</script>
+</body>
+</html>
